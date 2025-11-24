@@ -1,0 +1,38 @@
+﻿@model IEnumerable<WarehouseApp.Models.ViewModels.UserWithRolesViewModel>
+
+@{
+    ViewData["Title"] = "Użytkownicy";
+}
+
+<h1>Użytkownicy</h1>
+
+<p>
+    <span class="text-muted">Panel zarządzania użytkownikami i rolami (tylko dla Administratora).</span>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Imię i nazwisko</th>
+            <th>Role</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Email</td>
+                <td>@item.FullName</td>
+                <td>@item.Roles</td>
+                <td>
+                    <a asp-action="EditRoles" asp-route-id="@item.UserId" class="btn btn-sm btn-primary">
+                        Edytuj role
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -1,0 +1,125 @@
+﻿@model WarehouseApp.Models.WarehouseDocument
+
+@{
+    ViewData["Title"] = "Szczegóły dokumentu";
+}
+
+<h1>Szczegóły dokumentu</h1>
+
+<div>
+    <h4>WarehouseDocument</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Numer dokumentu
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DocumentNumber)
+        </dd>
+        <dt class="col-sm-2">
+            Typ dokumentu
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DocumentType)
+        </dd>
+        <dt class="col-sm-2">
+            Data wystawienia
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IssueDate)
+        </dd>
+        <dt class="col-sm-2">
+            Data utworzenia
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+        <dt class="col-sm-2">
+            Kontrahent
+        </dt>
+        <dd class="col-sm-10">
+            @Model.BusinessPartner?.Name
+        </dd>
+        <dt class="col-sm-2">
+            Lokalizacja źródłowa
+        </dt>
+        <dd class="col-sm-10">
+            @Model.SourceLocation?.Code
+        </dd>
+        <dt class="col-sm-2">
+            Lokalizacja docelowa
+        </dt>
+        <dd class="col-sm-10">
+            @Model.TargetLocation?.Code
+        </dd>
+        <dt class="col-sm-2">
+            Numer faktury
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InvoiceNumber)
+        </dd>
+        <dt class="col-sm-2">
+            Uwagi
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+    </dl>
+</div>
+
+<hr />
+
+<h4>Pozycje dokumentu</h4>
+
+<p>
+    <a asp-controller="WarehouseDocumentLines"
+       asp-action="Create"
+       asp-route-warehouseDocumentId="@Model.Id">
+        Dodaj pozycję
+    </a>
+</p>
+
+@if (Model.Lines != null && Model.Lines.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>LP</th>
+                <th>Towar</th>
+                <th>Ilość</th>
+                <th>Cena j.</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Lines.OrderBy(l => l.LineNumber))
+            {
+                <tr>
+                    <td>@item.LineNumber</td>
+                    <td>@item.Product?.Name</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.UnitPrice</td>
+                    <td>
+                        <a asp-controller="WarehouseDocumentLines" asp-action="Edit" asp-route-id="@item.Id">Edytuj</a> |
+                        <a asp-action="ExportPdf"
+                           asp-route-id="@Model.Id"
+                           class="btn btn-danger me-2">
+                            Pobierz PDF
+                        </a>
+                        <a asp-controller="WarehouseDocumentLines" asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Brak pozycji.</p>
+}
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edytuj dokument</a> |
+    <a asp-action="Index">Wróć do listy</a>
+</div>
+

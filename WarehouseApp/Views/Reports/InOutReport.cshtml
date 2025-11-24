@@ -1,0 +1,52 @@
+﻿@model IEnumerable<WarehouseApp.Models.Reports.InOutReportItem>
+
+@{
+    ViewData["Title"] = "Raport przyjęć i wydań";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="get" class="row g-3 mb-4">
+    <div class="col-md-4">
+        <label class="form-label">Od daty</label>
+        <input type="date" name="fromDate" value="@ViewBag.FromDate.ToString("yyyy-MM-dd")" class="form-control" />
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Do daty</label>
+        <input type="date" name="toDate" value="@ViewBag.ToDate.ToString("yyyy-MM-dd")" class="form-control" />
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Id towaru (opcjonalnie)</label>
+        <input type="number" name="productId" value="@ViewBag.ProductId" class="form-control" />
+    </div>
+
+    <div class="col-12 mt-3">
+        <button class="btn btn-primary">Szukaj</button>
+        <a href="/Reports/InOutReport" class="btn btn-secondary">Wyczyść</a>
+    </div>
+</form>
+
+<table class="table table-bordered table-striped mt-3">
+    <thead>
+        <tr>
+            <th>Kod</th>
+            <th>Nazwa</th>
+            <th>Przyjęcia (PZ/PW)</th>
+            <th>Wydania (WZ/RW)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductCode</td>
+                <td>@item.ProductName</td>
+                <td>@item.QuantityIn</td>
+                <td>@item.QuantityOut</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

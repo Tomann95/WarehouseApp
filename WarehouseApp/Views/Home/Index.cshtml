@@ -1,0 +1,103 @@
+﻿@{
+    ViewData["Title"] = "Strona główna";
+}
+
+<div class="text-center mb-5">
+    <h1 class="display-4">Witaj w systemie obsługi magazynu</h1>
+    <p class="lead">
+        Jest to aplikacja wspierająca zarządzanie dokumentami magazynowymi, stanami towarów,
+        lokalizacjami oraz kontrahentami. Wybierz odpowiednią sekcję z menu, aby rozpocząć pracę.
+    </p>
+</div>
+
+<hr />
+
+<div class="container mb-5">
+    <h2 class="mb-4">Skróty dokumentów magazynowych</h2>
+
+    <ul class="list-group">
+        <li class="list-group-item">
+            <strong>PZ — Przyjęcie zewnętrzne</strong>
+            <br />
+            Dokument zwiększający stan magazynowy. Towar trafia na wskazaną lokalizację docelową.
+        </li>
+        <li class="list-group-item">
+            <strong>WZ — Wydanie zewnętrzne</strong>
+            <br />
+            Dokument zmniejszający stan magazynowy. Towar pobierany jest z wybranej lokalizacji źródłowej.
+        </li>
+        <li class="list-group-item">
+            <strong>MM — Przesunięcie międzymagazynowe</strong>
+            <br />
+            Przeniesienie towaru między lokalizacjami wewnątrz magazynu. Towar jest zdejmowany ze źródła
+            i dodawany na lokalizację docelową.
+        </li>
+        <li class="list-group-item">
+            <strong>PW — Przyjęcie wewnętrzne</strong>
+            <br />
+            Zwiększa stan magazynu — używane np. w przypadku remanentu lub korekt.
+        </li>
+        <li class="list-group-item">
+            <strong>RW — Rozchód wewnętrzny</strong>
+            <br />
+            Zmniejsza stan magazynu — zdejmowanie towaru z magazynu np. na potrzeby produkcji lub testów.
+        </li>
+    </ul>
+</div>
+
+<hr />
+
+<div class="container mt-5">
+    <h2 class="mb-4">Możliwości systemu</h2>
+
+    <div class="row g-4">
+
+        <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">📦 Zarządzanie towarami</h5>
+                    <p class="card-text">
+                        Dodawanie, edycja oraz usuwanie produktów dostępnych w magazynie.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">📍 Lokalizacje magazynowe</h5>
+                    <p class="card-text">
+                        Określanie sektorów, półek, miejsc i innych lokalizacji magazynowych.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">📄 Dokumenty magazynowe</h5>
+                    <p class="card-text">
+                        Tworzenie dokumentów PZ, WZ, MM, PW i RW oraz przypisywanie pozycji towarowych.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">📊 Stany magazynowe</h5>
+                    <p class="card-text">
+                        Automatyczna aktualizacja ilości po każdej operacji magazynowej.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+

@@ -1,0 +1,88 @@
+﻿@using WarehouseApp.Models.Enums
+@model IEnumerable<WarehouseApp.Models.Reports.MovementReportItem>
+
+@{
+    ViewData["Title"] = "Ruchy magazynowe";
+}
+
+<h1>Ruchy magazynowe</h1>
+
+<form method="get" class="row g-3 mb-4">
+    <div class="col-md-3">
+        <label class="form-label">Od daty</label>
+        <input type="date"
+               name="fromDate"
+               value="@(ViewBag.FromDate != null ? ((DateTime)ViewBag.FromDate).ToString("yyyy-MM-dd") : "")"
+               class="form-control" />
+    </div>
+    <div class="col-md-3">
+        <label class="form-label">Do daty</label>
+        <input type="date"
+               name="toDate"
+               value="@(ViewBag.ToDate != null ? ((DateTime)ViewBag.ToDate).ToString("yyyy-MM-dd") : "")"
+               class="form-control" />
+    </div>
+    <div class="col-md-3">
+        <label class="form-label">Id towaru (ProductId)</label>
+        <input type="number"
+               name="productId"
+               value="@(ViewBag.ProductId ?? "")"
+               class="form-control" />
+    </div>
+    <div class="col-md-3">
+        <label class="form-label">Id lokalizacji (LocationId)</label>
+        <input type="number"
+               name="locationId"
+               value="@(ViewBag.LocationId ?? "")"
+               class="form-control" />
+    </div>
+
+    <div class="col-12 mt-2">
+        <button type="submit" class="btn btn-primary me-2">Filtruj</button>
+        <a asp-action="MovementReport" class="btn btn-secondary">Wyczyść</a>
+    </div>
+</form>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        Brak ruchów magazynowych w zadanym zakresie.
+    </div>
+}
+else
+{
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Nr dokumentu</th>
+                <th>Typ</th>
+                <th>Kontrahent</th>
+                <th>Kod towaru</th>
+                <th>Nazwa towaru</th>
+                <th>Lokalizacja źródłowa</th>
+                <th>Lokalizacja docelowa</th>
+                <th class="text-end">Ilość</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.IssueDate.ToString("yyyy-MM-dd")</td>
+                    <td>@item.DocumentNumber</td>
+                    <td>@item.DocumentType</td>
+                    <td>@item.BusinessPartnerName</td>
+                    <td>@item.ProductCode</td>
+                    <td>@item.ProductName</td>
+                    <td>@item.SourceLocationCode</td>
+                    <td>@item.TargetLocationCode</td>
+                    <td class="text-end">@item.Quantity.ToString("0.###")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+

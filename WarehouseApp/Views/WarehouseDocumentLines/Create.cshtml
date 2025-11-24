@@ -1,0 +1,50 @@
+﻿@model WarehouseApp.Models.WarehouseDocumentLine
+
+@{
+    ViewData["Title"] = "Nowa pozycja dokumentu";
+    var documentId = ViewData["WarehouseDocumentId"];
+}
+
+<h1>Nowa pozycja dokumentu</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+            @Html.AntiForgeryToken()
+
+            @* ukryte Id dokumentu *@
+            <input type="hidden" asp-for="WarehouseDocumentId" />
+
+            <div class="form-group">
+                <label asp-for="ProductId" class="control-label"></label>
+                <select asp-for="ProductId" class="form-control" asp-items="ViewBag.ProductId">
+                    <option value="">-- wybierz towar --</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label"></label>
+                <input asp-for="Quantity" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UnitPrice" class="control-label"></label>
+                <input asp-for="UnitPrice" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LineNumber" class="control-label"></label>
+                <input asp-for="LineNumber" class="form-control" />
+            </div>
+
+            <div class="form-group mt-2">
+                <input type="submit" value="Zapisz" class="btn btn-primary" />
+                <a asp-controller="WarehouseDocuments"
+                   asp-action="Details"
+                   asp-route-id="@Model.WarehouseDocumentId"
+                   class="btn btn-secondary">Wróć do dokumentu</a>
+            </div>
+        </form>
+    </div>
+</div>

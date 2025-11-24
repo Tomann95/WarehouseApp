@@ -1,0 +1,59 @@
+﻿@model WarehouseApp.Models.WarehouseDocumentLine
+
+@{
+    ViewData["Title"] = "Usuń pozycję dokumentu";
+}
+
+<h1>Usuń pozycję dokumentu</h1>
+
+<h4>Czy na pewno chcesz usunąć tę pozycję?</h4>
+<hr />
+<dl class="row">
+    <dt class="col-sm-2">
+        Dokument
+    </dt>
+    <dd class="col-sm-10">
+        @Model.WarehouseDocument?.DocumentNumber
+    </dd>
+
+    <dt class="col-sm-2">
+        Towar
+    </dt>
+    <dd class="col-sm-10">
+        @Model.Product?.Name
+    </dd>
+
+    <dt class="col-sm-2">
+        Ilość
+    </dt>
+    <dd class="col-sm-10">
+        @Model.Quantity
+    </dd>
+
+    <dt class="col-sm-2">
+        Cena jednostkowa
+    </dt>
+    <dd class="col-sm-10">
+        @Model.UnitPrice
+    </dd>
+
+    <dt class="col-sm-2">
+        LP
+    </dt>
+    <dd class="col-sm-10">
+        @Model.LineNumber
+    </dd>
+</dl>
+
+<form asp-action="Delete" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <input type="submit" value="Usuń" class="btn btn-danger" />
+        <a asp-controller="WarehouseDocuments"
+           asp-action="Details"
+           asp-route-id="@Model.WarehouseDocumentId"
+           class="btn btn-secondary">Wróć do dokumentu</a>
+    </div>
+</form>

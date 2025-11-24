@@ -1,0 +1,39 @@
+﻿@model WarehouseApp.Models.WarehouseLocation
+
+@{
+    ViewData["Title"] = "Nowa lokalizacja";
+}
+
+<h1>Nowa lokalizacja magazynowa</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <!-- novalidate = brak walidacji po stronie przeglądarki -->
+        <form asp-action="Create" method="post" novalidate>
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <label asp-for="Code" class="control-label"></label>
+                <input asp-for="Code" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+            </div>
+
+            <div class="form-group form-check">
+                <input asp-for="IsActive" class="form-check-input" />
+                <label asp-for="IsActive" class="form-check-label"></label>
+            </div>
+
+            <div class="form-group mt-2">
+                <input type="submit" value="Zapisz" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Wróć do listy</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+

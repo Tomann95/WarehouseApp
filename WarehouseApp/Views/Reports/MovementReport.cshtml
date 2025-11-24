@@ -1,0 +1,79 @@
+﻿@model IEnumerable<WarehouseApp.Models.Reports.MovementReportItem>
+
+@{
+    ViewData["Title"] = "Raport ruchów magazynowych";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="get" class="row g-3 mb-4">
+    <div class="col-md-3">
+        <label class="form-label">Od daty</label>
+        <input type="date"
+               name="fromDate"
+               value="@(((DateTime)ViewBag.FromDate).ToString("yyyy-MM-dd"))"
+               class="form-control" />
+    </div>
+
+    <div class="col-md-3">
+        <label class="form-label">Do daty</label>
+        <input type="date"
+               name="toDate"
+               value="@(((DateTime)ViewBag.ToDate).ToString("yyyy-MM-dd"))"
+               class="form-control" />
+    </div>
+
+    <div class="col-md-3">
+        <label class="form-label">Id towaru (opcjonalnie)</label>
+        <input type="number"
+               name="productId"
+               value="@ViewBag.ProductId"
+               class="form-control" />
+    </div>
+
+    <div class="col-md-3">
+        <label class="form-label">Id lokalizacji (opcjonalnie)</label>
+        <input type="number"
+               name="locationId"
+               value="@ViewBag.LocationId"
+               class="form-control" />
+    </div>
+
+    <div class="col-12 mt-3">
+        <button class="btn btn-primary">Szukaj</button>
+        <a href="/Reports/MovementReport" class="btn btn-secondary">Wyczyść</a>
+    </div>
+</form>
+
+<table class="table table-bordered table-striped mt-3">
+    <thead>
+        <tr>
+            <th>Data</th>
+            <th>Numer dokumentu</th>
+            <th>Typ</th>
+            <th>Kontrahent</th>
+            <th>Kod towaru</th>
+            <th>Nazwa towaru</th>
+            <th>Lokalizacja źródłowa</th>
+            <th>Lokalizacja docelowa</th>
+            <th class="text-end">Ilość</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.IssueDate.ToString("yyyy-MM-dd")</td>
+                <td>@item.DocumentNumber</td>
+                <td>@item.DocumentType</td>
+                <td>@item.BusinessPartnerName</td>
+                <td>@item.ProductCode</td>
+                <td>@item.ProductName</td>
+                <td>@item.SourceLocationCode</td>
+                <td>@item.TargetLocationCode</td>
+                <td class="text-end">@item.Quantity</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

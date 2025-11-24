@@ -1,0 +1,42 @@
+﻿@model IEnumerable<WarehouseApp.Models.WarehouseDocumentLine>
+
+@{
+    ViewData["Title"] = "Pozycje dokumentów";
+}
+
+<h1>Pozycje dokumentów</h1>
+
+<p>
+    <a asp-controller="WarehouseDocuments" asp-action="Index" class="btn btn-secondary">Wróć do dokumentów</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Dokument</th>
+            <th>LP</th>
+            <th>Towar</th>
+            <th>Ilość</th>
+            <th>Cena j.</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.WarehouseDocument?.DocumentNumber</td>
+                <td>@item.LineNumber</td>
+                <td>@item.Product?.Name</td>
+                <td>@item.Quantity</td>
+                <td>@item.UnitPrice</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edytuj</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a> |
+                    <a asp-controller="WarehouseDocuments" asp-action="Details" asp-route-id="@item.WarehouseDocumentId">Dokument</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -1,0 +1,56 @@
+﻿@model WarehouseApp.Models.ViewModels.EditUserRolesViewModel
+
+@{
+    ViewData["Title"] = "Edycja ról użytkownika";
+}
+
+<h1>Edycja ról użytkownika</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Email</h5>
+        <h6 class="card-subtitle mb-2 text-muted">
+            @Model.FullName
+        </h6>
+
+        <form asp-action="EditRoles" method="post">
+            <input type="hidden" asp-for="UserId" />
+            <input type="hidden" asp-for="Email" />
+            <input type="hidden" asp-for="FullName" />
+
+            <div class="form-check">
+                <input class="form-check-input" asp-for="IsAdministrator" />
+                <label class="form-check-label" asp-for="IsAdministrator">
+                    Administrator
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" asp-for="IsWarehouseWorker" />
+                <label class="form-check-label" asp-for="IsWarehouseWorker">
+                    Pracownik magazynu
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" asp-for="IsWarehouseManager" />
+                <label class="form-check-label" asp-for="IsWarehouseManager">
+                    Kierownik magazynu
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" asp-for="IsAuditor" />
+                <label class="form-check-label" asp-for="IsAuditor">
+                    Audytor
+                </label>
+            </div>
+
+            <div class="mt-3">
+                <button type="submit" class="btn btn-success">Zapisz</button>
+                <a asp-action="Index" class="btn btn-secondary">Wróć do listy</a>
+            </div>
+        </form>
+    </div>
+</div>
+

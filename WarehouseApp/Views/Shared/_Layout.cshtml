@@ -1,0 +1,122 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WarehouseApp.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WarehouseApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+
+                <!-- Logo -->
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                    WarehouseApp
+                </a>
+
+                <!-- Hamburger -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        <!-- ZASOBY (Towary, Lokalizacje, Stany, Kontrahenci itd.) -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
+                                Zasoby
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-controller="StockItems" asp-action="Index">Towary</a></li>
+                                <li><a class="dropdown-item" asp-controller="WarehouseLocations" asp-action="Index">Lokalizacje magazynowe</a></li>
+                                <li><a class="dropdown-item" asp-controller="WarehouseDocuments" asp-action="Index">Dokumenty magazynowe</a></li>
+                                <li><a class="dropdown-item" asp-controller="WarehouseDocumentLines" asp-action="Index">Pozycje dokumentów</a></li>
+                                <li><a class="dropdown-item" asp-controller="Products" asp-action="Index">Stany magazynowe</a></li>
+                                <li><a class="dropdown-item" asp-controller="BusinessPartners" asp-action="Index">Kontrahenci</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- RAPORTY -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
+                                Raporty
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-controller="Reports" asp-action="InOutReport">Raport przyjęć i wydań</a></li>
+                                <li><a class="dropdown-item" asp-controller="Reports" asp-action="MovementReport">Raport ruchów towarów</a></li>
+                                <li><a class="dropdown-item" asp-controller="Reports" asp-action="WarehouseDocument">Raport dokumentu magazynowego</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- PANEL ADMINA – widoczny TYLKO dla Administratora -->
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Users" asp-action="Index">Użytkownicy</a>
+                            </li>
+                        }
+                    </ul>
+
+                    <!-- Logowanie / Rejestracja / Profil -->
+                    <ul class="navbar-nav">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index">
+                                    Witaj, @UserManager.GetUserAsync(User).Result?.FullName
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <form asp-area="Identity" asp-page="/Account/Logout" method="post" class="form-inline">
+                                    <button type="submit" class="btn btn-danger btn-sm ms-2">Wyloguj</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Login">Logowanie</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Register">Rejestracja</a>
+                            </li>
+                        }
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Główna zawartość -->
+    <div class="container my-4">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- STOPKA -->
+    <footer class="border-top text-muted text-center py-3">
+        © @DateTime.Now.Year - WarehouseApp — Autor: Mateusz Tomanek
+    </footer>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<WarehouseApp.Models.StockItem>
+
+@{
+    ViewData["Title"] = "Stany magazynowe";
+}
+
+<h1>Stany magazynowe</h1>
+
+<form method="get" class="mb-3">
+    <div class="row g-2">
+        <div class="col-md-4">
+            <input name="productFilter" value="@Context.Request.Query["productFilter"]" class="form-control" placeholder="Filtr: towar (nazwa/kod)" />
+        </div>
+        <div class="col-md-4">
+            <input name="locationFilter" value="@Context.Request.Query["locationFilter"]" class="form-control" placeholder="Filtr: lokalizacja" />
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-primary">Szukaj</button>
+            <a asp-action="Index" class="btn btn-secondary">Wyczyść</a>
+        </div>
+    </div>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Towar</th>
+            <th>Kod towaru</th>
+            <th>Lokalizacja</th>
+            <th class="text-end">Ilość</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in Model)
+        {
+            <tr>
+                <td>@s.Product?.Name</td>
+                <td>@s.Product?.Code</td>
+                <td>@s.WarehouseLocation?.Code</td>
+                <td class="text-end">@s.Quantity</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
